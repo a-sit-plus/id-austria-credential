@@ -5,13 +5,10 @@ plugins {
     id("maven-publish")
 }
 
+/* required for maven publication */
+val artifactVersion: String by extra
 group = "at.asitplus.wallet"
-version = "1.0.0-SNAPSHOT"
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
+version = "$artifactVersion"
 
 kotlin {
     jvm {
@@ -48,8 +45,54 @@ kotlin {
     }
 }
 
+val gitLabPrivateToken: String? by extra
+val gitLabProjectId: String by extra
+val gitLabGroupId: String by extra
+
+repositories {
+    mavenLocal()
+    if (System.getenv("CI_JOB_TOKEN") != null || gitLabPrivateToken != null) {
+        maven {
+            name = "gitlab"
+            url = uri("https://gitlab.iaik.tugraz.at/api/v4/groups/$gitLabGroupId/-/packages/maven")
+            if (gitLabPrivateToken != null) {
+                credentials(HttpHeaderCredentials::class) {
+                    name = "Private-Token"
+                    value = gitLabPrivateToken
+                }
+            } else if (System.getenv("CI_JOB_TOKEN") != null) {
+                credentials(HttpHeaderCredentials::class) {
+                    name = "Job-Token"
+                    value = System.getenv("CI_JOB_TOKEN")
+                }
+            }
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
+        }
+    }
+    mavenCentral()
+    maven {
+        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    }
+}
+
+
 publishing {
     repositories {
         mavenLocal()
+        if (System.getenv("CI_JOB_TOKEN") != null) {
+            maven {
+                name = "gitlab"
+                url = uri("https://gitlab.iaik.tugraz.at/api/v4/projects/$gitLabProjectId/packages/maven")
+                credentials(HttpHeaderCredentials::class) {
+                    name = "Job-Token"
+                    value = System.getenv("CI_JOB_TOKEN")
+                }
+                authentication {
+                    create<HttpHeaderAuthentication>("header")
+                }
+            }
+        }
     }
 }
