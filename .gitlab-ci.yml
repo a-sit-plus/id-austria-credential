@@ -39,7 +39,7 @@ assembleJdk11:
   artifacts:
     when: always
     reports:
-      junit: "build/test-results/jvmTest/TEST-*.xml"
+      junit: "idacredential/build/test-results/jvmTest/TEST-*.xml"
 
 assembleIos:
   tags:
@@ -49,7 +49,7 @@ assembleIos:
   artifacts:
     when: always
     reports:
-      junit: "build/test-results/ios*64Test/TEST-*.xml"
+      junit: "idacredential/build/test-results/ios*64Test/TEST-*.xml"
 
 publish:
   needs:
