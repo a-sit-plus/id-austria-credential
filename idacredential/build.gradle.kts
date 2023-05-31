@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") 
+    kotlin("multiplatform")
     kotlin("plugin.serialization") version "1.8.20"
     id("io.kotest.multiplatform") version "5.5.4"
     id("maven-publish")
@@ -25,7 +25,6 @@ kotlin {
                 implementation("io.ktor:ktor-http:2.2.1")
                 implementation("io.ktor:ktor-utils:2.2.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 api("at.asitplus.wallet:vclib-openid:2.0.0-SNAPSHOT")
             }
         }
@@ -38,7 +37,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0")
             }
         }
         val jvmTest by getting
