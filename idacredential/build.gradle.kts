@@ -47,6 +47,7 @@ kotlin {
 
 val gitLabPrivateToken: String? by extra
 val gitLabProjectId: String by extra
+val extGitProjectId: String by extra
 val gitLabGroupId: String by extra
 
 repositories {
@@ -85,6 +86,17 @@ publishing {
             maven {
                 name = "gitlab"
                 url = uri("https://gitlab.iaik.tugraz.at/api/v4/projects/$gitLabProjectId/packages/maven")
+                credentials(HttpHeaderCredentials::class) {
+                    name = "Job-Token"
+                    value = System.getenv("CI_JOB_TOKEN")
+                }
+                authentication {
+                    create<HttpHeaderAuthentication>("header")
+                }
+            }
+            maven {
+                name = "extgit"
+                url = uri("https://extgit.iaik.tugraz.at/api/v4/projects/$extGitProjectId/packages/maven")
                 credentials(HttpHeaderCredentials::class) {
                     name = "Job-Token"
                     value = System.getenv("CI_JOB_TOKEN")

@@ -75,6 +75,30 @@ publish:
     reports:
       dotenv: variables.env
 
+publishExtgit:
+  needs:
+    - assembleJdk11
+    - assembleIos
+  tags:
+    - ios
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "development"'
+      when: always
+      allow_failure: true
+    - if: '$CI_COMMIT_REF_NAME == "master" || $CI_COMMIT_REF_NAME == "development" || $CI_COMMIT_REF_NAME =~ /^release.*$/ || $CI_COMMIT_REF_NAME =~ /^feature.*$/'
+      when: manual
+      allow_failure: true
+  script: |
+    export VERSION=$(grep artifactVersion gradle.properties | sed "s/artifactVersion = //g")
+    [[ -z "$VERSION" ]] && { echo "Version is empty" ; exit 1; }
+    echo "Publishing version $VERSION for $LIB_NAME"
+    echo "VERSION=$VERSION" >> variables.env
+    ./gradlew --continue assemble publishAllPublicationsToExtgitRepository
+  artifacts:
+    when: always
+    reports:
+      dotenv: variables.env
+
 release:
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
