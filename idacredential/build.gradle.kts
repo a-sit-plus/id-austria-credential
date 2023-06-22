@@ -25,7 +25,7 @@ kotlin {
                 implementation("io.ktor:ktor-http:2.2.1")
                 implementation("io.ktor:ktor-utils:2.2.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                api("at.asitplus.wallet:vclib-openid:2.0.0-SNAPSHOT")
+                api("at.asitplus.wallet:vclib-openid:2.0.2-SNAPSHOT")
             }
         }
         val commonTest by getting {
