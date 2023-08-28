@@ -1,10 +1,3 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
-    }
+plugins {
+    id("at.asitplus.gradle.conventions") version "1.8.21+20230622"
 }

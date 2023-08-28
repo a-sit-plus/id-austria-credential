@@ -1,5 +1,6 @@
 package at.asitplus.wallet.idaustria
 
+import at.asitplus.wallet.lib.data.jsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.LocalDate
@@ -11,6 +12,7 @@ import kotlin.random.Random
 class SerializationTest : FunSpec({
 
     test("serialize credential") {
+        Initializer.initWithVcLib()
         val id = randomString()
         val firstname = randomString()
         val lastname = randomString()
@@ -21,10 +23,10 @@ class SerializationTest : FunSpec({
             lastname = lastname,
             dateOfBirth = dateOfBirth
         )
-        val serialized = Json.encodeToString(credential)
+        val serialized = jsonSerializer.encodeToString(credential)
         println(serialized)
 
-        val parsed: IdAustriaCredential = Json.decodeFromString(serialized)
+        val parsed: IdAustriaCredential = jsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
     }
 

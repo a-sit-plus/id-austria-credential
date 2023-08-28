@@ -9,6 +9,7 @@ object ConstantIndex {
         override val credentialDefinitionName: String = "idaustria"
         override val schemaUri: String = "$BASE/schemas/1.0.0/idaustria.json"
         override val vcType: String = "IdAustria2023"
+        override val credentialFormat: ConstantIndex.CredentialFormat = ConstantIndex.CredentialFormat.W3C_VC
     }
 
 }

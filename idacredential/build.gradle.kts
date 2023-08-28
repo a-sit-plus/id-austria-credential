@@ -1,8 +1,8 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.8.20"
-    id("io.kotest.multiplatform") version "5.5.4"
+    kotlin("plugin.serialization")
     id("maven-publish")
+    id("at.asitplus.gradle.conventions")
 }
 
 /* required for maven publication */
@@ -25,22 +25,11 @@ kotlin {
                 implementation("io.ktor:ktor-http:2.2.1")
                 implementation("io.ktor:ktor-utils:2.2.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                api("at.asitplus.wallet:vclib-openid:2.1.0-SNAPSHOT")
+                api("at.asitplus.wallet:vclib-openid:3.0.0")
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation("io.kotest:kotest-assertions-core:5.5.4")
-                implementation("io.kotest:kotest-framework-engine:5.5.4")
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0")
-                implementation("io.kotest:kotest-runner-junit5-jvm:5.5.4")
-            }
-        }
+        val commonTest by getting
+        val jvmMain by getting
         val jvmTest by getting
     }
 }
@@ -74,7 +63,10 @@ repositories {
     }
     mavenCentral()
     maven {
-        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
+    }
+    maven{
+        url = uri("https://raw.githubusercontent.com/a-sit-plus/kotlinx.serialization/mvn/repo")
     }
 }
 

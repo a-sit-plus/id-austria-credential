@@ -17,14 +17,11 @@ class Initializer {
             initWithVcLib()
         }
 
-        private var registered = false
-
         /**
          * This has to be called first, before anything first, to load the
          * relevant classes of this library into the base implementations of vclib
          */
         fun initWithVcLib() {
-            if (registered) return
             LibraryInitializer.registerExtensionLibrary(
                 LibraryInitializer.ExtensionLibraryInfo(
                     credentialScheme = ConstantIndex.IdAustriaCredential,
@@ -35,7 +32,6 @@ class Initializer {
                     },
                 )
             )
-            registered = true
         }
     }
 
