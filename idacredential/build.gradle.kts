@@ -1,6 +1,9 @@
+import at.asitplus.gradle.*
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
+    id("org.jetbrains.dokka")
     id("maven-publish")
     id("at.asitplus.gradle.conventions")
     id("signing")
@@ -46,8 +49,43 @@ repositories {
     }
 }
 
+val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(dokkaHtml.outputDirectory)
+}
 
 publishing {
+    publications {
+        withType<MavenPublication> {
+            artifact(javadocJar)
+            pom {
+                name.set("W3C VC ID Austria Credential")
+                description.set("Use data provided by ID Austria as a W3C VC")
+                url.set("https://github.com/a-sit-plus/id-austria-credential/")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("nodh")
+                        name.set("Christian Kollmann")
+                        email.set("christian.kollmann@a-sit.at")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git@github.com:a-sit-plus/id-austria-credential.git")
+                    developerConnection.set("scm:git:git@github.com:a-sit-plus/id-austria-credential.git")
+                    url.set("https://github.com/a-sit-plus/id-austria-credential/")
+                }
+            }
+        }
+    }
     repositories {
         mavenLocal {
             signing.isRequired = false
