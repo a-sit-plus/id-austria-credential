@@ -35,6 +35,29 @@ class SerializationTest : FunSpec({
         parsed shouldBe credential
     }
 
+    test("deserialize credential") {
+        val serialCred = "{" +
+                "\"id\":\"Test ID\"," +
+                "\"bpk-intermediates\":\"{" +
+                    "\\\"blinded-bkz\\\":\\\"VGVzdCBCS1o\\\"," +
+                    "\\\"blinded-bpk\\\":\\\"VGVzdCBCUEs\\\"" +
+                "}\"," +
+                "\"firstname\":\"Ha\\u010dek\"," +
+                "\"lastname\":\"Musterfrau\"," +
+                "\"date-of-birth\":\"1901-02-03\"," +
+                "\"portrait\":\"dGhpcy1pcy1hLWZhY2U\"" +
+            "}"
+
+        val cred: IdAustriaCredential = jsonSerializer.decodeFromString(serialCred)
+        cred.id shouldBe "Test ID"
+        cred.bpkIntermediates.blindedBKZ shouldBe "Test BKZ".toByteArray()
+        cred.bpkIntermediates.blindedBPK shouldBe "Test BPK".toByteArray()
+        cred.firstname shouldBe "Haček"
+        cred.lastname shouldBe "Musterfrau"
+        cred.dateOfBirth shouldBe LocalDate(year=1901, monthNumber=2, dayOfMonth=3)
+        cred.portrait shouldBe "this-is-a-face".toByteArray()
+    }
+
 })
 
 
