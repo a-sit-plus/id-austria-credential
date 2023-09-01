@@ -13,15 +13,20 @@ class SerializationTest : FunSpec({
 
     test("serialize credential") {
         Initializer.initWithVcLib()
+
         val id = randomString()
+        val bpk = BpkIntermediateValues(randomString().toByteArray(), randomString().toByteArray())
         val firstname = randomString()
         val lastname = randomString()
         val dateOfBirth = LocalDate(2023, 1, 13)
+        val portrait = randomString().toByteArray()
         val credential = IdAustriaCredential(
             id = id,
+            bpkIntermediates = bpk,
             firstname = firstname,
             lastname = lastname,
-            dateOfBirth = dateOfBirth
+            dateOfBirth = dateOfBirth,
+            portrait = portrait,
         )
         val serialized = jsonSerializer.encodeToString(credential)
         println(serialized)

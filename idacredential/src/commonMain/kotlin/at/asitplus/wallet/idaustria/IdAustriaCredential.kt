@@ -15,7 +15,8 @@ data class IdAustriaCredential(
     override val id: String,
 
     @SerialName("bpk-intermediates")
-    val bpkIntermediates: String,
+    @Serializable(with = BpkIntermediateValueSerializer::class)
+    val bpkIntermediates: BpkIntermediateValues,
 
     @SerialName("firstname")
     val firstname: String,
