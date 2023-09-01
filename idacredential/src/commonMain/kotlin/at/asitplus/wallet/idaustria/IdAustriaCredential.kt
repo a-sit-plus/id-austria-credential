@@ -31,7 +31,7 @@ data class IdAustriaCredential(
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
     val portrait: ByteArray
 
-) : CredentialSubject(id) {
+) : CredentialSubject() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
