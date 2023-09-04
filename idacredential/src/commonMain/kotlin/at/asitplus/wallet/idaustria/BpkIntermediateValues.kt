@@ -23,7 +23,7 @@ object BpkIntermediateValueSerializer : KSerializer<BpkIntermediateValues> {
         Json{}.decodeFromString(decoder.decodeString())
 }
 
-@Serializable
+@Serializable/*TODO can we do this: (with=BpkIntermediateValueSerializer::class); without infinite loop?*/
 data class BpkIntermediateValues(
     @SerialName("blinded-bkz")
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
