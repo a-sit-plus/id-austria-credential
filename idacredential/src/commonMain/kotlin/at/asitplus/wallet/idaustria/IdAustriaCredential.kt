@@ -26,7 +26,7 @@ data class IdAustriaCredential(
 
     @SerialName("portrait")
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
-    val portrait: ByteArray
+    val portrait: ByteArray? = null
 
 ) : CredentialSubject() {
     override fun equals(other: Any?): Boolean {
@@ -39,7 +39,10 @@ data class IdAustriaCredential(
         if (firstname != other.firstname) return false
         if (lastname != other.lastname) return false
         if (dateOfBirth != other.dateOfBirth) return false
-        if (!portrait.contentEquals(other.portrait)) return false
+        if (portrait != null) {
+            if (other.portrait == null) return false
+            if (!portrait.contentEquals(other.portrait)) return false
+        } else if (other.portrait != null) return false
 
         return true
     }
@@ -49,7 +52,7 @@ data class IdAustriaCredential(
         result = 31 * result + firstname.hashCode()
         result = 31 * result + lastname.hashCode()
         result = 31 * result + dateOfBirth.hashCode()
-        result = 31 * result + portrait.contentHashCode()
+        result = 31 * result + (portrait?.contentHashCode() ?: 0)
         return result
     }
 }
