@@ -15,14 +15,12 @@ class SerializationTest : FunSpec({
         Initializer.initWithVcLib()
 
         val id = randomString()
-        val bpk = BpkIntermediateValues(randomString().toByteArray(), randomString().toByteArray())
         val firstname = randomString()
         val lastname = randomString()
         val dateOfBirth = LocalDate(2023, 1, 13)
         val portrait = randomString().toByteArray()
         val credential = IdAustriaCredential(
             id = id,
-            bpkIntermediates = bpk,
             firstname = firstname,
             lastname = lastname,
             dateOfBirth = dateOfBirth,
@@ -38,10 +36,6 @@ class SerializationTest : FunSpec({
     test("deserialize credential") {
         val serialCred = "{" +
                 "\"id\":\"Test ID\"," +
-                "\"bpk-intermediates\":\"{" +
-                    "\\\"blinded-bkz\\\":\\\"VGVzdCBCS1o\\\"," +
-                    "\\\"blinded-bpk\\\":\\\"VGVzdCBCUEs\\\"" +
-                "}\"," +
                 "\"firstname\":\"Ha\\u010dek\"," +
                 "\"lastname\":\"Musterfrau\"," +
                 "\"date-of-birth\":\"1901-02-03\"," +
@@ -50,8 +44,6 @@ class SerializationTest : FunSpec({
 
         val cred: IdAustriaCredential = jsonSerializer.decodeFromString(serialCred)
         cred.id shouldBe "Test ID"
-        cred.bpkIntermediates.blindedBKZ shouldBe "Test BKZ".toByteArray()
-        cred.bpkIntermediates.blindedBPK shouldBe "Test BPK".toByteArray()
         cred.firstname shouldBe "Haček"
         cred.lastname shouldBe "Musterfrau"
         cred.dateOfBirth shouldBe LocalDate(year=1901, monthNumber=2, dayOfMonth=3)

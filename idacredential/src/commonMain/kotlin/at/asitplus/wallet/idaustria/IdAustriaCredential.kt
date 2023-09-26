@@ -14,10 +14,6 @@ data class IdAustriaCredential(
 
     override val id: String,
 
-    @SerialName("bpk-intermediates")
-    @Serializable(with = BpkIntermediateValueSerializer::class)
-    val bpkIntermediates: BpkIntermediateValues,
-
     @SerialName("firstname")
     val firstname: String,
 
@@ -40,7 +36,6 @@ data class IdAustriaCredential(
         other as IdAustriaCredential
 
         if (id != other.id) return false
-        if (bpkIntermediates != other.bpkIntermediates) return false
         if (firstname != other.firstname) return false
         if (lastname != other.lastname) return false
         if (dateOfBirth != other.dateOfBirth) return false
@@ -51,7 +46,6 @@ data class IdAustriaCredential(
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + bpkIntermediates.hashCode()
         result = 31 * result + firstname.hashCode()
         result = 31 * result + lastname.hashCode()
         result = 31 * result + dateOfBirth.hashCode()

@@ -1,5 +1,6 @@
-package at.asitplus.wallet.idaustria
+package at.asitplus.wallet.idaustria.bison
 
+import at.asitplus.wallet.idaustria.IdAustriaCredential
 import at.asitplus.wallet.lib.jws.ByteArrayBase64UrlSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -12,19 +13,19 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
 
-object BpkIntermediateValueSerializer : KSerializer<BpkIntermediateValues> {
+object BISONIntermediateValueSerializer : KSerializer<BISONIntermediateValues> {
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("BpkIntermediateValueSerializer", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor("BISONIntermediateValueSerializer", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: BpkIntermediateValues) =
+    override fun serialize(encoder: Encoder, value: BISONIntermediateValues) =
         encoder.encodeString(Json {}.encodeToString(value))
 
-    override fun deserialize(decoder: Decoder): BpkIntermediateValues =
+    override fun deserialize(decoder: Decoder): BISONIntermediateValues =
         Json{}.decodeFromString(decoder.decodeString())
 }
 
 @Serializable/*TODO can we do this: (with=BpkIntermediateValueSerializer::class); without infinite loop?*/
-data class BpkIntermediateValues(
+data class BISONIntermediateValues(
     @SerialName("blinded-bkz")
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
     val blindedBKZ: ByteArray,
@@ -37,7 +38,7 @@ data class BpkIntermediateValues(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as BpkIntermediateValues
+        other as BISONIntermediateValues
 
         if (!blindedBKZ.contentEquals(other.blindedBKZ)) return false
         if (!blindedBPK.contentEquals(other.blindedBPK)) return false
@@ -51,3 +52,14 @@ data class BpkIntermediateValues(
         return result
     }
 }
+
+@Serializable
+@SerialName("IdAustria2023BISON")
+data class IdAustriaCredentialWithBISON (
+    @SerialName("ida-credential")
+    val idAustriaCredential: IdAustriaCredential,
+
+    @SerialName("bison")
+    @Serializable(with = BISONIntermediateValueSerializer::class)
+    val bisonIntermediates: BISONIntermediateValues
+)
