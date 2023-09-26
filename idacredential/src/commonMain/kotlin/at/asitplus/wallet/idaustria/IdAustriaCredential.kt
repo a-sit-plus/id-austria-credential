@@ -14,10 +14,6 @@ data class IdAustriaCredential(
 
     override val id: String,
 
-    @SerialName("bpk-intermediates")
-    @Serializable(with = BpkIntermediateValueSerializer::class)
-    val bpkIntermediates: BpkIntermediateValues,
-
     @SerialName("firstname")
     val firstname: String,
 
@@ -30,7 +26,7 @@ data class IdAustriaCredential(
 
     @SerialName("portrait")
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
-    val portrait: ByteArray
+    val portrait: ByteArray? = null
 
 ) : CredentialSubject() {
     override fun equals(other: Any?): Boolean {
@@ -40,22 +36,23 @@ data class IdAustriaCredential(
         other as IdAustriaCredential
 
         if (id != other.id) return false
-        if (bpkIntermediates != other.bpkIntermediates) return false
         if (firstname != other.firstname) return false
         if (lastname != other.lastname) return false
         if (dateOfBirth != other.dateOfBirth) return false
-        if (!portrait.contentEquals(other.portrait)) return false
+        if (portrait != null) {
+            if (other.portrait == null) return false
+            if (!portrait.contentEquals(other.portrait)) return false
+        } else if (other.portrait != null) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + bpkIntermediates.hashCode()
         result = 31 * result + firstname.hashCode()
         result = 31 * result + lastname.hashCode()
         result = 31 * result + dateOfBirth.hashCode()
-        result = 31 * result + portrait.contentHashCode()
+        result = 31 * result + (portrait?.contentHashCode() ?: 0)
         return result
     }
 }
