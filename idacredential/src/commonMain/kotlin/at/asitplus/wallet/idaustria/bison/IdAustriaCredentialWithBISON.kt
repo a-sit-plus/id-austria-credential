@@ -1,6 +1,7 @@
 package at.asitplus.wallet.idaustria.bison
 
 import at.asitplus.wallet.idaustria.IdAustriaCredential
+import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.jws.ByteArrayBase64UrlSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -62,4 +63,6 @@ data class IdAustriaCredentialWithBISON (
     @SerialName("bison")
     @Serializable(with = BISONIntermediateValueSerializer::class)
     val bisonIntermediates: BISONIntermediateValues
-)
+) : CredentialSubject() {
+    override val id = idAustriaCredential.id
+}
