@@ -16,7 +16,6 @@ version = "$artifactVersion"
 
 kotlin {
     jvm {
-        jvmToolchain(11)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -25,11 +24,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("io.github.aakira:napier:2.6.1")
-                implementation("io.ktor:ktor-http:2.2.1")
-                implementation("io.ktor:ktor-utils:2.2.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                api("at.asitplus.wallet:vclib-openid:3.0.2-SNAPSHOT")
+                api(serialization("json"))
+                api("at.asitplus.wallet:vclib:3.2.0")
             }
         }
         val commonTest by getting
@@ -62,8 +58,8 @@ publishing {
         withType<MavenPublication> {
             artifact(javadocJar)
             pom {
-                name.set("W3C VC ID Austria Credential")
-                description.set("Use data provided by ID Austria as a W3C VC")
+                name.set("ID Austria Verifiable Credential")
+                description.set("Use data provided by ID Austria as a W3C VC, or ISO 18013-5 Credential")
                 url.set("https://github.com/a-sit-plus/id-austria-credential/")
                 licenses {
                     license {

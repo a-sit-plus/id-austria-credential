@@ -5,4 +5,4 @@
 ![Java](https://img.shields.io/badge/java-11-blue.svg?logo=OPENJDK)
 [![Maven Central](https://img.shields.io/maven-central/v/at.asitplus.wallet/idacredential)](https://mvnrepository.com/artifact/at.asitplus.wallet/idacredential/)
 
-Use data provided by ID Austria as a W3C VC with the help of [KMM VC Lib](https://github.com/a-sit-plus/kmm-vc-library).
+Use data provided by ID Austria as a W3C VC, or ISO 18013-5 Credential, with the help of [KMM VC Lib](https://github.com/a-sit-plus/kmm-vc-library).
