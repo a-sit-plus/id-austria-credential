@@ -32,6 +32,9 @@ kotlin {
         val jvmMain by getting
         val jvmTest by getting
     }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 }
 
 repositories {
