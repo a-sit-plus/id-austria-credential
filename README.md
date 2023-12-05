@@ -10,10 +10,16 @@ Use data provided by ID Austria as a W3C VC, or ISO 18013-5 Credential, with the
 Be sure to call `at.asitplus.wallet.idaustria.Initializer.initWithVcLib` first thing in your application.
 
 Implemented attributes are:
- - `firstname`
- - `lastname`
- - `date-of-birth`
- - `portrait`
+ - `bpk`, in OIDC `urn:pvpgvat:oidc.bpk`
+ - `firstname`, in OIDC `given_name`
+ - `lastname`, in OIDC `family_name`
+ - `date-of-birth`, in OIDC `birthdate`
+ - `portrait`, in OIDC `org.iso.18013.5.1:portrait`
+ - `main-address`, in OIDC `urn:eidgvat:attributes.mainAddress` (see <https://eid.egiz.gv.at/meldeadresse/>)
+ - `age-over-14`, in OIDC `org.iso.18013.5.1:age_over_14`
+ - `age-over-16`, in OIDC `org.iso.18013.5.1:age_over_16`
+ - `age-over-18`, in OIDC `org.iso.18013.5.1:age_over_18`
+ - `age-over-21`, in OIDC `org.iso.18013.5.1:age_over_21`
 
 ## Changelog
 

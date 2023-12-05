@@ -4,9 +4,7 @@ import at.asitplus.wallet.lib.data.jsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.LocalDate
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import kotlin.random.Random
 
 class SerializationTest : FunSpec({
@@ -17,37 +15,41 @@ class SerializationTest : FunSpec({
         val id = randomString()
         val firstname = randomString()
         val lastname = randomString()
+        val bpk = randomString()
         val dateOfBirth = LocalDate(2023, 1, 13)
-        val portrait = randomString().toByteArray()
+        val portrait = Random.nextBytes(32)
         val credential = IdAustriaCredential(
             id = id,
+            bpk = bpk,
             firstname = firstname,
             lastname = lastname,
             dateOfBirth = dateOfBirth,
             portrait = portrait,
         )
-        val serialized = jsonSerializer.encodeToString(credential)
-        println(serialized)
+        val serialized = jsonSerializer.encodeToString(credential).also { println(it) }
 
         val parsed: IdAustriaCredential = jsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
     }
 
     test("deserialize credential") {
-        val serialCred = "{" +
+        val serialized = "{" +
                 "\"id\":\"Test ID\"," +
+                "\"bpk\":\"Test BPK\"," +
                 "\"firstname\":\"Ha\\u010dek\"," +
                 "\"lastname\":\"Musterfrau\"," +
                 "\"date-of-birth\":\"1901-02-03\"," +
                 "\"portrait\":\"dGhpcy1pcy1hLWZhY2U\"" +
             "}"
 
-        val cred: IdAustriaCredential = jsonSerializer.decodeFromString(serialCred)
-        cred.id shouldBe "Test ID"
-        cred.firstname shouldBe "Haček"
-        cred.lastname shouldBe "Musterfrau"
-        cred.dateOfBirth shouldBe LocalDate(year=1901, monthNumber=2, dayOfMonth=3)
-        cred.portrait shouldBe "this-is-a-face".toByteArray()
+        val parsed: IdAustriaCredential = jsonSerializer.decodeFromString(serialized)
+
+        parsed.id shouldBe "Test ID"
+        parsed.bpk shouldBe "Test BPK"
+        parsed.firstname shouldBe "Haček"
+        parsed.lastname shouldBe "Musterfrau"
+        parsed.dateOfBirth shouldBe LocalDate(year=1901, monthNumber=2, dayOfMonth=3)
+        parsed.portrait shouldBe "this-is-a-face".encodeToByteArray()
     }
 
 })

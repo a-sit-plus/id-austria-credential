@@ -9,13 +9,29 @@ object IdAustriaScheme : ConstantIndex.CredentialScheme {
     override val vcType: String = "IdAustria2023"
     override val isoNamespace: String = "at.gv.id-austria.2023"
     override val isoDocType: String = "at.gv.id-austria.2023.iso"
-    override val claimNames: Collection<String> =
-        listOf(Attributes.FIRSTNAME, Attributes.LASTNAME, Attributes.DATE_OF_BIRTH, Attributes.PORTRAIT)
+    override val claimNames: Collection<String> = listOf(
+        Attributes.BPK,
+        Attributes.FIRSTNAME,
+        Attributes.LASTNAME,
+        Attributes.DATE_OF_BIRTH,
+        Attributes.PORTRAIT,
+        Attributes.MAIN_ADDRESS,
+        Attributes.AGE_OVER_14,
+        Attributes.AGE_OVER_16,
+        Attributes.AGE_OVER_18,
+        Attributes.AGE_OVER_21,
+    )
 
     object Attributes {
+        const val BPK = "bpk"
         const val FIRSTNAME = "firstname"
         const val LASTNAME = "lastname"
         const val DATE_OF_BIRTH = "date-of-birth"
         const val PORTRAIT = "portrait"
+        const val MAIN_ADDRESS = "main-address"
+        const val AGE_OVER_14 = "age-over-14"
+        const val AGE_OVER_16 = "age-over-16"
+        const val AGE_OVER_18 = "age-over-18"
+        const val AGE_OVER_21 = "age-over-21"
     }
 }
