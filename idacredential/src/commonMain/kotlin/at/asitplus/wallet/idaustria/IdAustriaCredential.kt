@@ -1,5 +1,6 @@
 package at.asitplus.wallet.idaustria
 
+import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes
 import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.jws.ByteArrayBase64UrlSerializer
 import kotlinx.datetime.LocalDate
@@ -14,17 +15,17 @@ data class IdAustriaCredential(
 
     override val id: String,
 
-    @SerialName("firstname")
+    @SerialName(Attributes.FIRSTNAME)
     val firstname: String,
 
-    @SerialName("lastname")
+    @SerialName(Attributes.LASTNAME)
     val lastname: String,
 
-    @SerialName("date-of-birth")
+    @SerialName(Attributes.DATE_OF_BIRTH)
     @Serializable(with = LocalDateIso8601Serializer::class)
     val dateOfBirth: LocalDate,
 
-    @SerialName("portrait")
+    @SerialName(Attributes.PORTRAIT)
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
     val portrait: ByteArray? = null
 

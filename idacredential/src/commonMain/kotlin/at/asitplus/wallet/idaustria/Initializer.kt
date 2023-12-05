@@ -24,7 +24,7 @@ class Initializer {
         fun initWithVcLib() {
             LibraryInitializer.registerExtensionLibrary(
                 LibraryInitializer.ExtensionLibraryInfo(
-                    credentialScheme = ConstantIndex.IdAustriaCredential,
+                    credentialScheme = IdAustriaScheme,
                     serializersModule = SerializersModule {
                         polymorphic(CredentialSubject::class) {
                             subclass(IdAustriaCredential::class)
