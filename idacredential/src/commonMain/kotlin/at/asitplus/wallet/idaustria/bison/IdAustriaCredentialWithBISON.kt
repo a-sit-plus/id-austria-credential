@@ -1,8 +1,8 @@
 package at.asitplus.wallet.idaustria.bison
 
+import at.asitplus.crypto.datatypes.io.ByteArrayBase64UrlSerializer
 import at.asitplus.wallet.idaustria.IdAustriaCredential
 import at.asitplus.wallet.lib.data.CredentialSubject
-import at.asitplus.wallet.lib.jws.ByteArrayBase64UrlSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -22,10 +22,10 @@ object BISONIntermediateValueSerializer : KSerializer<BISONIntermediateValues> {
         encoder.encodeString(Json {}.encodeToString(value))
 
     override fun deserialize(decoder: Decoder): BISONIntermediateValues =
-        Json{}.decodeFromString(decoder.decodeString())
+        Json {}.decodeFromString(decoder.decodeString())
 }
 
-@Serializable/*TODO can we do this: (with=BpkIntermediateValueSerializer::class); without infinite loop?*/
+@Serializable /*TODO can we do this: (with=BpkIntermediateValueSerializer::class); without infinite loop?*/
 data class BISONIntermediateValues(
     @SerialName("blinded-bkz")
     @Serializable(with = ByteArrayBase64UrlSerializer::class)
@@ -56,7 +56,7 @@ data class BISONIntermediateValues(
 
 @Serializable
 @SerialName("IdAustria2023BISON")
-data class IdAustriaCredentialWithBISON (
+data class IdAustriaCredentialWithBISON(
     @SerialName("ida-credential")
     val idAustriaCredential: IdAustriaCredential,
 

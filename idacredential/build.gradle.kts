@@ -25,7 +25,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vclib:3.3.0")
+                api("at.asitplus.wallet:vclib:3.4.0")
             }
         }
         val commonTest by getting
@@ -42,9 +42,6 @@ repositories {
     mavenCentral()
     maven {
         url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
-    }
-    maven{
-        url = uri("https://raw.githubusercontent.com/a-sit-plus/kotlinx.serialization/mvn/repo")
     }
 }
 
