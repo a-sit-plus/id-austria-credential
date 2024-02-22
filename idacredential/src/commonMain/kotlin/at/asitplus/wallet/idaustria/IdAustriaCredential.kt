@@ -1,8 +1,8 @@
 package at.asitplus.wallet.idaustria
 
+import at.asitplus.crypto.datatypes.io.ByteArrayBase64UrlSerializer
 import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes
 import at.asitplus.wallet.lib.data.CredentialSubject
-import at.asitplus.wallet.lib.jws.ByteArrayBase64UrlSerializer
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.serializers.LocalDateIso8601Serializer
 import kotlinx.serialization.SerialName
@@ -50,7 +50,7 @@ data class IdAustriaCredential(
     @SerialName(Attributes.AGE_OVER_21)
     val ageOver21: Boolean? = null,
 
-) : CredentialSubject() {
+    ) : CredentialSubject() {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
