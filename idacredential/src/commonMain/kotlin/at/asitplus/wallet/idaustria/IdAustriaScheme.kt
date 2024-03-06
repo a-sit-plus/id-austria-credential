@@ -20,6 +20,8 @@ object IdAustriaScheme : ConstantIndex.CredentialScheme {
         Attributes.AGE_OVER_16,
         Attributes.AGE_OVER_18,
         Attributes.AGE_OVER_21,
+        Attributes.VEHICLE_REGISTRATION,
+        Attributes.GENDER,
     )
 
     object Attributes {
@@ -33,5 +35,7 @@ object IdAustriaScheme : ConstantIndex.CredentialScheme {
         const val AGE_OVER_16 = "age-over-16"
         const val AGE_OVER_18 = "age-over-18"
         const val AGE_OVER_21 = "age-over-21"
+        const val VEHICLE_REGISTRATION = "vehicle-registration"
+        const val GENDER = "gender"
     }
 }

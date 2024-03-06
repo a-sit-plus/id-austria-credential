@@ -50,7 +50,15 @@ data class IdAustriaCredential(
     @SerialName(Attributes.AGE_OVER_21)
     val ageOver21: Boolean? = null,
 
-    ) : CredentialSubject() {
+    /**
+     * See [https://eid.egiz.gv.at/zulassungsscheindaten/](https://eid.egiz.gv.at/zulassungsscheindaten/)
+     */
+    @SerialName(Attributes.VEHICLE_REGISTRATION)
+    val vehicleRegistration: String? = null,
+
+    @SerialName(Attributes.GENDER)
+    val gender: String? = null,
+) : CredentialSubject() {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -72,6 +80,8 @@ data class IdAustriaCredential(
         if (ageOver16 != other.ageOver16) return false
         if (ageOver18 != other.ageOver18) return false
         if (ageOver21 != other.ageOver21) return false
+        if (vehicleRegistration != other.vehicleRegistration) return false
+        if (gender != other.gender) return false
 
         return true
     }
@@ -88,6 +98,8 @@ data class IdAustriaCredential(
         result = 31 * result + (ageOver16?.hashCode() ?: 0)
         result = 31 * result + (ageOver18?.hashCode() ?: 0)
         result = 31 * result + (ageOver21?.hashCode() ?: 0)
+        result = 31 * result + (vehicleRegistration?.hashCode() ?: 0)
+        result = 31 * result + (gender?.hashCode() ?: 0)
         return result
     }
 

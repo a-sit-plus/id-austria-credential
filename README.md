@@ -20,8 +20,21 @@ Implemented attributes are:
  - `age-over-16`, in OIDC `org.iso.18013.5.1:age_over_16`
  - `age-over-18`, in OIDC `org.iso.18013.5.1:age_over_18`
  - `age-over-21`, in OIDC `org.iso.18013.5.1:age_over_21`
+ - `vehicle-registration`, in OIDC `urn:eidgvat:attributes.vehicleRegistrations` (see <https://eid.egiz.gv.at/zulassungsscheindaten/>)
+ - `gender`, in OIDC `urn:eidgvat:attributes.gender`
 
 ## Changelog
+
+Release 3.8.0:
+ - Extend list of attributes: Add vehicle registration, gender
+ - Compatibility with `vclib` 3.8.0
+
+Release 3.5.0:
+ - Compatibility with KMP Crypto 3.2.0
+ - Compatibility with `vclib` >=3.8.0-SNAPSHOT
+
+Release 3.4.0:
+ - Use `vclib` 3.4.0
 
 Release 3.3.0:
  - Use `vclib` 3.3.0

@@ -6,33 +6,30 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 
-class Initializer {
+object Initializer {
 
-    companion object {
+    /**
+     * A reference to this class is enough to trigger the init block
+     */
+    init {
+        initWithVcLib()
+    }
 
-        /**
-         * A reference to this class is enough to trigger the init block
-         */
-        init {
-            initWithVcLib()
-        }
-
-        /**
-         * This has to be called first, before anything first, to load the
-         * relevant classes of this library into the base implementations of vclib
-         */
-        fun initWithVcLib() {
-            LibraryInitializer.registerExtensionLibrary(
-                LibraryInitializer.ExtensionLibraryInfo(
-                    credentialScheme = IdAustriaScheme,
-                    serializersModule = SerializersModule {
-                        polymorphic(CredentialSubject::class) {
-                            subclass(IdAustriaCredential::class)
-                        }
-                    },
-                )
+    /**
+     * This has to be called first, before anything first, to load the
+     * relevant classes of this library into the base implementations of vclib
+     */
+    fun initWithVcLib() {
+        LibraryInitializer.registerExtensionLibrary(
+            LibraryInitializer.ExtensionLibraryInfo(
+                credentialScheme = IdAustriaScheme,
+                serializersModule = SerializersModule {
+                    polymorphic(CredentialSubject::class) {
+                        subclass(IdAustriaCredential::class)
+                    }
+                },
             )
-        }
+        )
     }
 
 }
