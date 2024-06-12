@@ -1,4 +1,4 @@
-import at.asitplus.gradle.*
+import at.asitplus.gradle.serialization
 
 plugins {
     kotlin("multiplatform")
@@ -40,9 +40,8 @@ kotlin {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven {
-        url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
-    }
+    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
+    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
 }
 
 val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
