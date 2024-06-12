@@ -1,5 +1,5 @@
 plugins {
-    id("at.asitplus.gradle.conventions") version "1.9.10+20240219"
+    id("at.asitplus.gradle.conventions") version "2.0.0+20240610"
 }
 
 val artifactVersion: String by extra
