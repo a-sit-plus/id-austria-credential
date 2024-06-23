@@ -21,14 +21,12 @@ object Initializer {
      */
     fun initWithVcLib() {
         LibraryInitializer.registerExtensionLibrary(
-            LibraryInitializer.ExtensionLibraryInfo(
-                credentialScheme = IdAustriaScheme,
-                serializersModule = SerializersModule {
-                    polymorphic(CredentialSubject::class) {
-                        subclass(IdAustriaCredential::class)
-                    }
-                },
-            )
+            credentialScheme = IdAustriaScheme,
+            serializersModule = SerializersModule {
+                polymorphic(CredentialSubject::class) {
+                    subclass(IdAustriaCredential::class)
+                }
+            },
         )
     }
 

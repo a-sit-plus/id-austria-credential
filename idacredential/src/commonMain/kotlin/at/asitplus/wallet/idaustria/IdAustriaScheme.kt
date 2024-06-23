@@ -1,6 +1,8 @@
 package at.asitplus.wallet.idaustria
 
 import at.asitplus.wallet.lib.data.ConstantIndex
+import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation
+import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation.*
 import at.asitplus.wallet.lib.data.SchemaIndex
 
 
@@ -9,6 +11,8 @@ object IdAustriaScheme : ConstantIndex.CredentialScheme {
     override val vcType: String = "IdAustria2023"
     override val isoNamespace: String = "at.gv.id-austria.2023"
     override val isoDocType: String = "at.gv.id-austria.2023.iso"
+    override val sdJwtType: String = "at.gv.id-austria.2023.1"
+    override val supportedRepresentations: Collection<CredentialRepresentation> = listOf(SD_JWT, PLAIN_JWT, ISO_MDOC)
     override val claimNames: Collection<String> = listOf(
         Attributes.BPK,
         Attributes.FIRSTNAME,
