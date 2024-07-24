@@ -28,8 +28,11 @@ Implemented attributes are:
 
 ## Changelog
 
+Release 3.8.2:
+- Update to `vclib` 4.0.0
+
 Release 3.8.1:
- - Fix compatiblity with `vclib` 3.8.0
+ - Fix compatibility with `vclib` 3.8.0
 
 Release 3.8.0:
  - Extend list of attributes: Add vehicle registration, gender
