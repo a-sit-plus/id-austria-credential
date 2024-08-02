@@ -10,7 +10,7 @@ import kotlin.random.Random
 class SerializationTest : FunSpec({
 
     test("serialize credential") {
-        Initializer.initWithVcLib()
+        Initializer.initWithVCK()
 
         val id = randomString()
         val firstname = randomString()

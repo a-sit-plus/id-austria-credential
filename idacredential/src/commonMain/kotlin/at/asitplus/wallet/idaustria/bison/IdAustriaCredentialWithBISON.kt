@@ -1,6 +1,6 @@
 package at.asitplus.wallet.idaustria.bison
 
-import at.asitplus.crypto.datatypes.io.ByteArrayBase64UrlSerializer
+import at.asitplus.signum.indispensable.io.ByteArrayBase64UrlSerializer
 import at.asitplus.wallet.idaustria.IdAustriaCredential
 import at.asitplus.wallet.lib.data.CredentialSubject
 import kotlinx.serialization.KSerializer

@@ -1,6 +1,6 @@
 package at.asitplus.wallet.idaustria
 
-import at.asitplus.crypto.datatypes.io.ByteArrayBase64UrlSerializer
+import at.asitplus.signum.indispensable.io.ByteArrayBase64UrlSerializer
 import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes
 import at.asitplus.wallet.lib.data.CredentialSubject
 import kotlinx.datetime.LocalDate
