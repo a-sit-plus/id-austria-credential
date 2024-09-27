@@ -25,7 +25,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vck:4.1.0")
+                api("at.asitplus.wallet:vck:5.0.0-SNAPSHOT")
             }
         }
         val commonTest by getting

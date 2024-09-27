@@ -1,6 +1,7 @@
 package at.asitplus.wallet.idaustria
 
 import at.asitplus.wallet.lib.data.jsonSerializer
+import at.asitplus.wallet.lib.data.vckJsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.LocalDate
@@ -26,9 +27,9 @@ class SerializationTest : FunSpec({
             dateOfBirth = dateOfBirth,
             portrait = portrait,
         )
-        val serialized = jsonSerializer.encodeToString(credential).also { println(it) }
+        val serialized = vckJsonSerializer.encodeToString(credential).also { println(it) }
 
-        val parsed: IdAustriaCredential = jsonSerializer.decodeFromString(serialized)
+        val parsed: IdAustriaCredential = vckJsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
     }
 
@@ -42,7 +43,7 @@ class SerializationTest : FunSpec({
                 "\"portrait\":\"dGhpcy1pcy1hLWZhY2U\"" +
             "}"
 
-        val parsed: IdAustriaCredential = jsonSerializer.decodeFromString(serialized)
+        val parsed: IdAustriaCredential = vckJsonSerializer.decodeFromString(serialized)
 
         parsed.id shouldBe "Test ID"
         parsed.bpk shouldBe "Test BPK"

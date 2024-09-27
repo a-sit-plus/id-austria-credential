@@ -19,10 +19,10 @@ object BISONIntermediateValueSerializer : KSerializer<BISONIntermediateValues> {
         PrimitiveSerialDescriptor("BISONIntermediateValueSerializer", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: BISONIntermediateValues) =
-        encoder.encodeString(Json {}.encodeToString(value))
+        encoder.encodeString(Json.encodeToString(value))
 
     override fun deserialize(decoder: Decoder): BISONIntermediateValues =
-        Json {}.decodeFromString(decoder.decodeString())
+        Json.decodeFromString(decoder.decodeString())
 }
 
 @Serializable /*TODO can we do this: (with=BpkIntermediateValueSerializer::class); without infinite loop?*/

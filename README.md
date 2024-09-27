@@ -28,6 +28,9 @@ Implemented attributes are:
 
 ## Changelog
 
+Release 3.9.0:
+- Update to VC-K 5.0.0
+
 Release 3.8.3:
 - Update to VC-K 4.1.0
 
