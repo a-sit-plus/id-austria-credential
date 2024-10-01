@@ -1,6 +1,5 @@
 package at.asitplus.wallet.idaustria
 
-import at.asitplus.wallet.lib.data.jsonSerializer
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -11,8 +10,6 @@ import kotlin.random.Random
 class SerializationTest : FunSpec({
 
     test("serialize credential") {
-        Initializer.initWithVCK()
-
         val id = randomString()
         val firstname = randomString()
         val lastname = randomString()
