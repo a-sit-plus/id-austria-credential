@@ -1,5 +1,3 @@
-import at.asitplus.gradle.serialization
-
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
@@ -21,17 +19,10 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(serialization("json"))
-                api("at.asitplus.wallet:vck:4.1.0")
-            }
-        }
-        val commonTest by getting
-        val jvmMain by getting
-        val jvmTest by getting
+    sourceSets.commonMain.dependencies {
+        api("at.asitplus.wallet:vck:5.0.0")
     }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
