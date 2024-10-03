@@ -28,6 +28,9 @@ Implemented attributes are:
 
 ## Changelog
 
+Release 3.9.1:
+- Fix serialization of boolean elements `age_over_14`, `age_over_16`, `age_over_18`, `age_over_21`
+
 Release 3.9.0:
 - Update to VC-K 5.0.0
 
