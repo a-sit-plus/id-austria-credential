@@ -7,6 +7,7 @@ import at.asitplus.wallet.lib.data.vckJsonSerializer
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.builtins.ByteArraySerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -37,6 +38,10 @@ object Initializer {
             itemValueSerializerMap = mapOf(
                 IdAustriaScheme.Attributes.DATE_OF_BIRTH to LocalDate.serializer(),
                 IdAustriaScheme.Attributes.PORTRAIT to ByteArraySerializer(),
+                IdAustriaScheme.Attributes.AGE_OVER_14 to Boolean.serializer(),
+                IdAustriaScheme.Attributes.AGE_OVER_16 to Boolean.serializer(),
+                IdAustriaScheme.Attributes.AGE_OVER_18 to Boolean.serializer(),
+                IdAustriaScheme.Attributes.AGE_OVER_21 to Boolean.serializer(),
             )
         )
     }

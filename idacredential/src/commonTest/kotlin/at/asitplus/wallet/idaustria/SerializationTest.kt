@@ -24,7 +24,7 @@ class SerializationTest : FunSpec({
             dateOfBirth = dateOfBirth,
             portrait = portrait,
         )
-        val serialized = vckJsonSerializer.encodeToString(credential).also { println(it) }
+        val serialized = vckJsonSerializer.encodeToString(credential)
 
         val parsed: IdAustriaCredential = vckJsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
