@@ -1,13 +1,13 @@
 package at.asitplus.wallet.idaustria
 
+import at.asitplus.dif.SchemaReference
 import at.asitplus.wallet.lib.data.ConstantIndex
 import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation
 import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation.*
-import at.asitplus.wallet.lib.data.SchemaIndex
 
 
 object IdAustriaScheme : ConstantIndex.CredentialScheme {
-    override val schemaUri: String = "${SchemaIndex.BASE}/schemas/1.0.0/idaustria.json"
+    override val schemaUri: String = "https://wallet.a-sit.at/schemas/1.0.0/idaustria.json"
     override val vcType: String = "IdAustria2023"
     override val isoNamespace: String = "at.gv.id-austria.2023"
     override val isoDocType: String = "at.gv.id-austria.2023.iso"

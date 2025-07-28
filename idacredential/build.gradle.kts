@@ -20,7 +20,7 @@ kotlin {
         }
     }
     sourceSets.commonMain.dependencies {
-        api("at.asitplus.wallet:vck:5.2.1")
+        api("at.asitplus.wallet:vck:5.8.0-SNAPSHOT")
     }
 
     iosX64()
@@ -28,12 +28,6 @@ kotlin {
     iosSimulatorArm64()
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
-    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-}
 
 val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
 
