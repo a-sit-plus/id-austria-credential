@@ -1,7 +1,14 @@
 package at.asitplus.wallet.idaustria
 
-import at.asitplus.signum.indispensable.CryptoSignature
+import at.asitplus.iso.DeviceKeyInfo
+import at.asitplus.iso.IssuerSignedItemSerializer
+import at.asitplus.iso.ValidityInfo
+import at.asitplus.iso.ValueDigest
+import at.asitplus.iso.ValueDigestList
 import at.asitplus.signum.indispensable.cosef.*
+import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
+import at.asitplus.signum.supreme.sign.EphemeralKey
+import at.asitplus.signum.supreme.signature
 import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes.AGE_OVER_14
 import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes.AGE_OVER_16
 import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes.AGE_OVER_18
@@ -23,22 +30,32 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.random.nextUInt
+import kotlin.time.Clock
 
 class SerializerRegistrationTest : FreeSpec({
 
     "Serialization and deserialization" - {
         withData(nameFn = { "for ${it.key}" }, dataMap().entries) {
             val item = it.toIssuerSignedItem()
-            val serialized = item.serialize(IdAustriaScheme.isoNamespace)
+            val serialized = coseCompliantSerializer.encodeToByteArray(
+                IssuerSignedItemSerializer(
+                    IdAustriaScheme.isoNamespace,
+                    it.key
+                ), item
+            )
 
             val deserialized =
-                IssuerSignedItem.deserialize(serialized, IdAustriaScheme.isoNamespace, item.elementIdentifier)
-                    .getOrThrow()
+                coseCompliantSerializer.decodeFromByteArray(
+                    IssuerSignedItemSerializer(
+                        IdAustriaScheme.isoNamespace,
+                        it.key
+                    ), serialized
+                ) shouldBe item
+
 
             deserialized.elementValue shouldBe it.value
         }
@@ -55,11 +72,16 @@ class SerializerRegistrationTest : FreeSpec({
             docType = "docType",
             validityInfo = ValidityInfo(Clock.System.now(), Clock.System.now(), Clock.System.now())
         )
+
+        val rsaSig = EphemeralKey {
+            rsa
+        }.getOrThrow().signer { }.getOrThrow().sign(byteArrayOf(1, 3, 3, 7)).signature
+
         val issuerAuth: CoseSigned<MobileSecurityObject> = CoseSigned.create(
             CoseHeader(),
             null,
             mso,
-            CryptoSignature.RSAorHMAC(rawBytes = byteArrayOf(1, 3, 3, 7)),
+            rsaSig,
             MobileSecurityObject.serializer()
         )
         val credential = SubjectCredentialStore.StoreEntry.Iso(
@@ -84,7 +106,7 @@ private fun deviceKeyInfo() =
     DeviceKeyInfo(CoseKey(CoseKeyType.EC2, keyParams = CoseKeyParams.EcYBoolParams(CoseEllipticCurve.P256)))
 
 private fun Map.Entry<String, Any>.toIssuerSignedItem() =
-    IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
+    at.asitplus.iso.IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
 
 
 private fun dataMap(): Map<String, Any> =

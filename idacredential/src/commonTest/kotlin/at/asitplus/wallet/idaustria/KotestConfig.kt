@@ -1,9 +1,11 @@
-package at.asitplus.wallet.idaustria
+package io.kotest.provided
+import at.asitplus.test.XmlReportingProjectConfig
+import at.asitplus.wallet.idaustria.Initializer
 
-import io.kotest.core.config.AbstractProjectConfig
-
-class KotestConfig : AbstractProjectConfig() {
+/** Wires KMP JUnit XML reporting */
+class ProjectConfig : XmlReportingProjectConfig() {
     init {
         Initializer.initWithVCK()
+
     }
 }
