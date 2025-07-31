@@ -1,7 +1,10 @@
 package at.asitplus.wallet.idaustria
 
+import at.asitplus.iso.DeviceKeyInfo
 import at.asitplus.iso.IssuerSignedItemSerializer
 import at.asitplus.iso.ValidityInfo
+import at.asitplus.iso.ValueDigest
+import at.asitplus.iso.ValueDigestList
 import at.asitplus.signum.indispensable.cosef.*
 import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
 import at.asitplus.signum.supreme.sign.EphemeralKey
@@ -21,7 +24,6 @@ import at.asitplus.wallet.idaustria.IdAustriaScheme.Attributes.VEHICLE_REGISTRAT
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.iso.*
-import com.benasher44.uuid.uuid4
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.datatest.withData

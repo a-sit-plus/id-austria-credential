@@ -28,7 +28,7 @@ Implemented attributes are:
 
 ## Changelog
 
-Release 3.9.3
+Release 3.10.0
 - VC-K 5.8.0
 - Kotlin 2.2.0
 - kotlinx.datetime: 0.7.1
